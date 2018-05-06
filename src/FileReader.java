@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -11,7 +10,11 @@ public class FileReader{
 
 	public void readFile(){
 		
-		Path path = Paths.get("file01.txt");
+		Path path = Paths.get(System.getProperty("user.dir") + "\\src\\file01.txt");
+		
+		if(System.getProperty("os.name").equals("Linux")){
+			path = Paths.get(System.getProperty("user.dir") + "//src//file01.txt");
+		}
 		
 		try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())){
 			Processo[] listaProcessos = null;
