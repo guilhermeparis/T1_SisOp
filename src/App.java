@@ -3,8 +3,29 @@ public class App {
 
     public static void main(String args[]) {
     	Processo[] listaProcessos = null;
-        Escalonador esc = new Escalonador();
-        listaProcessos = esc.readFile(listaProcessos); 
-        esc.imprimeVetor(listaProcessos);
+        FileReader populator = new FileReader();
+        listaProcessos = populator.readFile(listaProcessos); 
+        imprimeVetor(listaProcessos);
     }
+    
+  //Recebe a lista de processos populada e lê seus valores
+  	public static void imprimeVetor(Processo[] listaProcessos) {
+  		System.out.print("Processos:\t");
+  		for(int i = 1; i <= listaProcessos.length; i++){
+  			System.out.print("P"+ i +"\t");
+  		}
+  		
+  		System.out.print("\nChegadas:\t");
+  		for(int i = 0; i < listaProcessos.length; i++){
+  			System.out.print("["+listaProcessos[i].getChegada()+"]\t");
+  		}
+  		System.out.print("\nExecuções:\t");
+  		for(int i = 0; i < listaProcessos.length; i++){
+  			System.out.print("["+listaProcessos[i].getExecucao()+"]\t");
+  		}
+  		System.out.print("\nPrioridade:\t");
+  		for(int i = 0; i < listaProcessos.length; i++){
+  			System.out.print("["+listaProcessos[i].getPrioridade()+"]\t");
+  		}
+  	}
 }

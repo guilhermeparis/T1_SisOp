@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class Escalonador{
+public class FileReader{
 	
 	//Lê o arquivo, monta a lista de processos, e a retorna para a main.
 	public Processo[] readFile(Processo[] listaProcessos){
@@ -58,24 +58,4 @@ public class Escalonador{
 		return listaProcessos;
 	}
 
-	//Recebe a lista de processos populada e lê seus valores
-	public void imprimeVetor(Processo[] listaProcessos) {
-		System.out.print("Processos:\t\t");
-		for(int i = 1; i <= listaProcessos.length; i++){
-			System.out.print("P"+ i +"\t");
-		}
-		
-		System.out.print("\nChegadas:\t\t");
-		for(int i = 0; i < listaProcessos.length; i++){
-			System.out.print("["+listaProcessos[i].getChegada()+"]\t");
-		}
-		System.out.print("\nExecuções:\t\t");
-		for(int i = 0; i < listaProcessos.length; i++){
-			System.out.print("["+listaProcessos[i].getExecucao()+"]\t");
-		}
-		System.out.print("\nVetor Prioridade:\t");
-		for(int i = 0; i < listaProcessos.length; i++){
-			System.out.print("["+listaProcessos[i].getPrioridade()+"]\t");
-		}
-	}
 }

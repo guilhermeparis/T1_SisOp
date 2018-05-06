@@ -5,12 +5,12 @@ public class Processo {
 	private int execucao;
 	private int chegada;
 	
-	public Processo(String nome, int prioridade, int execucao, int chegada) {
+	public Processo(String nome, int chegada, int execucao, int prioridade) {
 		super();
 		this.nome = nome;
-		this.prioridade = prioridade;
-		this.execucao = execucao;
 		this.chegada = chegada;
+		this.execucao = execucao;
+		this.prioridade = prioridade;
 	}
 
 	public String getNome() {
