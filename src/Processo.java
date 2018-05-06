@@ -1,24 +1,24 @@
 
 public class Processo {
-	private String nome;
+	private int numero;
 	private int prioridade;
 	private int execucao;
 	private int chegada;
+	private int restante;
+	private boolean terminado;
 	
-	public Processo(String nome, int chegada, int execucao, int prioridade) {
+	public void atende(){
+		this.restante--;
+	}
+	
+	public Processo(int numero, int chegada, int execucao, int prioridade) {
 		super();
-		this.nome = nome;
+		this.setNumero(numero);
 		this.chegada = chegada;
 		this.execucao = execucao;
 		this.prioridade = prioridade;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+		this.restante = execucao;
+		this.terminado = false;
 	}
 
 	public int getPrioridade() {
@@ -43,5 +43,29 @@ public class Processo {
 
 	public void setChegada(int chegada) {
 		this.chegada = chegada;
+	}
+
+	public int getRestante() {
+		return restante;
+	}
+
+	public void setRestante(int restante) {
+		this.restante = restante;
+	}
+
+	public boolean isTerminado() {
+		return terminado;
+	}
+
+	public void setTerminado(boolean terminado) {
+		this.terminado = terminado;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 }
