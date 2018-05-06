@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -8,7 +9,6 @@ import java.util.Scanner;
 
 public class FileReader{
 	
-	private int fatiaDeTempo = 0;
 	//Lê o arquivo, monta a lista de processos, e a retorna para a main.
 	public Processo[] readFile(Processo[] listaProcessos){
 		
@@ -34,18 +34,18 @@ public class FileReader{
 				case 1:
 					fatiaDeTempo = sc.nextInt();
 					System.out.println("Fatia de Tempo: " + fatiaDeTempo+"\n");
-					setFatiaDeTempo(fatiaDeTempo);
 					break;
 				default:
 					System.out.println("Processo P" + (l-1));
-					int n = (l-1);
+					String nome = "P"+(l-1);
+					//System.out.println(nome);
 					int c = sc.nextInt();
 					System.out.println("Chegada: " + c);
 					int e = sc.nextInt();
 					System.out.println("Execução: " + e);
 					int p = sc.nextInt();
 					System.out.println("Prioridade: " + p +"\n");
-					Processo x = new Processo(n, c, e, p);
+					Processo x = new Processo(nome, c, e, p);
 					listaProcessos[l-2] = x;
 					break;
 				}
@@ -57,14 +57,6 @@ public class FileReader{
 			System.err.format("Erro de E/S: %s%n", e);
 		}
 		return listaProcessos;
-	}
-	
-	public int getFatiaDeTempo() {
-		return fatiaDeTempo;
-	}
-	
-	public void setFatiaDeTempo(int fatiaDeTempo) {
-		this.fatiaDeTempo = fatiaDeTempo;
 	}
 
 }
