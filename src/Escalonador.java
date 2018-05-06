@@ -6,9 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class FileReader{
-
-	public void readFile(){
+public class Escalonador{
+	
+	//Lê o arquivo, monta a lista de processos, e a retorna para a main.
+	public Processo[] readFile(Processo[] listaProcessos){
 		
 		Path path = Paths.get(System.getProperty("user.dir") + "\\src\\file01.txt");
 		
@@ -17,7 +18,7 @@ public class FileReader{
 		}
 		
 		try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())){
-			Processo[] listaProcessos = null;
+			
 			int processos, fatiaDeTempo, l = 0;
 			String linha = null;
 			while ((linha = br.readLine()) != null){
@@ -34,8 +35,8 @@ public class FileReader{
 					System.out.println("Fatia de Tempo: " + fatiaDeTempo+"\n");
 					break;
 				default:
-					System.out.println("Processo p" + (l-1));
-					String nome = "p"+(l-1);
+					System.out.println("Processo P" + (l-1));
+					String nome = "P"+(l-1);
 					//System.out.println(nome);
 					int c = sc.nextInt();
 					System.out.println("Chegada: " + c);
@@ -43,17 +44,38 @@ public class FileReader{
 					System.out.println("Execução: " + e);
 					int p = sc.nextInt();
 					System.out.println("Prioridade: " + p +"\n");
-					Processo x = new Processo (nome, c, e, p);
+					Processo x = new Processo(nome, c, e, p);
 					listaProcessos[l-2] = x;
 					break;
 				}
 				l++;
 			}
-
 		}
 
 		catch (IOException e) {
 			System.err.format("Erro de E/S: %s%n", e);
+		}
+		return listaProcessos;
+	}
+
+	//Recebe a lista de processos populada e lê seus valores
+	public void imprimeVetor(Processo[] listaProcessos) {
+		System.out.print("Processos:\t\t");
+		for(int i = 1; i <= listaProcessos.length; i++){
+			System.out.print("P"+ i +"\t");
+		}
+		
+		System.out.print("\nChegadas:\t\t");
+		for(int i = 0; i < listaProcessos.length; i++){
+			System.out.print("["+listaProcessos[i].getChegada()+"]\t");
+		}
+		System.out.print("\nExecuções:\t\t");
+		for(int i = 0; i < listaProcessos.length; i++){
+			System.out.print("["+listaProcessos[i].getExecucao()+"]\t");
+		}
+		System.out.print("\nVetor Prioridade:\t");
+		for(int i = 0; i < listaProcessos.length; i++){
+			System.out.print("["+listaProcessos[i].getPrioridade()+"]\t");
 		}
 	}
 }
