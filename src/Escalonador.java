@@ -42,12 +42,16 @@ public class Escalonador {
 					// indicePriorizado volta a ser unassigned
 					robinCounter = 0;
 					// zera robin
+					trocaDeContexto();
+					//realiza troca de contexto
 				}
 				if (robinCounter == fatiaDeTempo) {
 					indicePriorizado = aplicaRoundRobin(indicePriorizado);
 					// vai conferir se tem outro no mesmo nivel
 					robinCounter = 0;
 					//zera robinCounter
+					trocaDeContexto();
+					//realiza troca de contexto
 				}
 				
 			}
@@ -98,8 +102,6 @@ public class Escalonador {
 			if (listaProcessos[i].getPrioridade() == prioridadeAtual &&
 					listaProcessos[i].getChegada() < cicloAtual) {
 				// foi encontrado outro com a mesma prioridade
-				System.out.print("C");
-				cicloAtual++;
 				return i;
 			}
 		}
@@ -116,4 +118,8 @@ public class Escalonador {
 		return true;
 	}
 
+	public void trocaDeContexto(){
+		System.out.print("C");
+		cicloAtual++;
+	}
 }
