@@ -15,7 +15,7 @@ public class App {
 		Escalonador esc = new Escalonador(listaProcessos, fatiaDeTempo);
 		//manda lista e fatia para o escalonador
 		esc.executa(listaProcessos);
-
+		esc.aftermath();
 	}
 
 	// Recebe a lista de processos populada e l� seus valores

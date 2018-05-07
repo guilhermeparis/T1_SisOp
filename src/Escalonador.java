@@ -69,7 +69,7 @@ public class Escalonador {
 				// proximo [item] do for.
 				continue;
 			}
-			if (listaProcessos[i].getChegada() == cicloAtual) {
+			if (listaProcessos[i].getChegada() <= cicloAtual) {
 				// Tem algum processo pro tempo de chegada atual?
 				if (listaProcessos[i].getPrioridade() <= comparadorPrioridade) {
 					// Ele eh mais importante que o anterior?
@@ -91,15 +91,13 @@ public class Escalonador {
 	}
 
 	public int aplicaRoundRobin(int indicePriorizado) {
-		int prioridadeAtual = listaProcessos[indicePriorizado].getPrioridade();
-		// guarda a prioridade do atual
 		for (int i = 0; i < listaProcessos.length; i++) {
 			if (i == indicePriorizado) {
 				// pula o que ja estava executando e vai procurar outro
 				continue;
 			}
 
-			if (listaProcessos[i].getPrioridade() == prioridadeAtual &&
+			if (listaProcessos[i].getPrioridade() == flagPrioridade() &&
 					listaProcessos[i].getChegada() < cicloAtual) {
 				// foi encontrado outro com a mesma prioridade
 				return i;
@@ -107,6 +105,40 @@ public class Escalonador {
 		}
 		return indicePriorizado;
 		//se nao foi encontrado, entao segue
+	}
+
+	public int flagPrioridade() {
+		int prioridade = 99; 
+		for(int i = 0; i < listaProcessos.length; i++){
+			if(listaProcessos[i].isTerminado()){
+				continue;
+				//irrelevante
+			}
+			if(listaProcessos[i].getPrioridade() < prioridade){
+				 prioridade = listaProcessos[i].getPrioridade();
+			}
+		}
+		return prioridade;
+	}
+	
+	public void trocaDeContexto(){
+		System.out.print("C");
+		cicloAtual++;
+	}
+	
+	public void aftermath(){
+		System.out.print("\n\nRestante:\t");
+		for(int i = 0; i<listaProcessos.length; i++){
+			System.out.print("["+listaProcessos[i].getRestante()+"]\t");
+		}
+		System.out.print("\n\nTerminado:\t");
+		for (int i = 0; i < listaProcessos.length; i++) {
+			if (listaProcessos[i].isTerminado()) {
+				System.out.print("[S]\t");
+			}else{
+				System.out.print("[N]\t");
+			}
+		}
 	}
 
 	public boolean todosTerminados(Processo[] listaProcessos) {
@@ -118,8 +150,4 @@ public class Escalonador {
 		return true;
 	}
 
-	public void trocaDeContexto(){
-		System.out.print("C");
-		cicloAtual++;
-	}
 }
