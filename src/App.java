@@ -18,7 +18,7 @@ public class App {
 
 	}
 
-	// Recebe a lista de processos populada e lê seus valores
+	// Recebe a lista de processos populada e lï¿½ seus valores
 	public static void imprimeVetor(Processo[] listaProcessos) {
 		System.out.print("Processo:\t");
 		for (int i = 1; i <= listaProcessos.length; i++) {
@@ -30,7 +30,7 @@ public class App {
 			System.out.print("[" + listaProcessos[i].getChegada() + "]\t");
 		}
 
-		System.out.print("\nExecução:\t");
+		System.out.print("\nExecucao:\t");
 		for (int i = 0; i < listaProcessos.length; i++) {
 			System.out.print("[" + listaProcessos[i].getExecucao() + "]\t");
 		}

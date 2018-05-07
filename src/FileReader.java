@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class FileReader{
 	
 	private int fatiaDeTempo = 0;
-	//Lê o arquivo, monta a lista de processos, e a retorna para a main.
+	//Lï¿½ o arquivo, monta a lista de processos, e a retorna para a main.
 	public Processo[] readFile(Processo[] listaProcessos){
 		
 		Path path = Paths.get(System.getProperty("user.dir") + "\\src\\file01.txt");
@@ -42,7 +42,7 @@ public class FileReader{
 					int c = sc.nextInt();
 					System.out.println("Chegada: " + c);
 					int e = sc.nextInt();
-					System.out.println("Execução: " + e);
+					System.out.println("Execucao: " + e);
 					int p = sc.nextInt();
 					System.out.println("Prioridade: " + p +"\n");
 					Processo x = new Processo(n, c, e, p);
