@@ -1,24 +1,23 @@
 
-public class Escalonador {
+public class Escalonador{
 
 	private Processo[] listaProcessos;
-	private int fatiaDeTempo, comparadorPrioridade, indicePriorizado, robinCounter, cicloAtual;
+	private int fatiaDeTempo, indicePriorizado, robinCounter, cicloAtual;
 
 	public Escalonador(Processo[] listaProcessos, int fatiaDeTempo) {
 		this.listaProcessos = listaProcessos;
 		this.fatiaDeTempo = fatiaDeTempo;
-		this.comparadorPrioridade = 99;
+		//this.comparadorPrioridade = 99;
 		this.indicePriorizado = -1;
 		this.robinCounter = 0;
 		this.cicloAtual = 0;
 	}
 
 	public void executa(Processo[] listaProcessos) {
-		// considere -1 como "unassigned", o valor que
-		// nao esta vinculado a nenhum dos processos
+		// considere -1 como "unassigned", o valor que nao esta vinculado a nenhum dos processos
 		
-		////// trocar de volta para (!todosTerminados(listaProcessos))
-		while (cicloAtual < 80) {
+		// trocar de volta para (!todosTerminados(listaProcessos))
+		while (!todosTerminados()) {
 			// Enquanto houver pelo menos um pendente
 			cicloAtual++;
 			// sobe o ciclo de execucao (primeira ocorrencia eh 1)
@@ -62,7 +61,7 @@ public class Escalonador {
 	public int confereChegadas() {
 		int indiceEntrada = indicePriorizado;
 		//guarda o valor do indice que entrou
-		for (int i = 0; i < listaProcessos.length; i++) {
+		for (int i = listaProcessos.length-1; i >=0; i--) {
 			// Percorre a lista de processos
 			if (listaProcessos[i].isTerminado()) {
 				// Se o processo lido ja estiver completo, manda para o
@@ -71,9 +70,9 @@ public class Escalonador {
 			}
 			if (listaProcessos[i].getChegada() <= cicloAtual) {
 				// Tem algum processo pro tempo de chegada atual?
-				if (listaProcessos[i].getPrioridade() <= comparadorPrioridade) {
+				if (listaProcessos[i].getPrioridade() <= flagPrioridade()) {
 					// Ele eh mais importante que o anterior?
-					comparadorPrioridade = listaProcessos[i].getPrioridade();
+					//comparadorPrioridade = listaProcessos[i].getPrioridade();
 					// Atualiza a prioridade
 					indicePriorizado = i;
 					// Marca o indice desse novo priorizado
@@ -97,8 +96,7 @@ public class Escalonador {
 				continue;
 			}
 
-			if (listaProcessos[i].getPrioridade() == flagPrioridade() &&
-					listaProcessos[i].getChegada() < cicloAtual) {
+			if (listaProcessos[i].getPrioridade() == flagPrioridade() && listaProcessos[i].getChegada() < cicloAtual) {
 				// foi encontrado outro com a mesma prioridade
 				return i;
 			}
@@ -141,7 +139,7 @@ public class Escalonador {
 		}
 	}
 
-	public boolean todosTerminados(Processo[] listaProcessos) {
+	public boolean todosTerminados() {
 		for (int i = 0; i < listaProcessos.length; i++) {
 			if (!listaProcessos[i].isTerminado()) {
 				return false;
