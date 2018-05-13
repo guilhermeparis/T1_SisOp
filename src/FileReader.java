@@ -39,8 +39,8 @@ public class FileReader{
 					setFatiaDeTempo(fatiaDeTempo);
 					break;
 				default:
-					int entrada = 0;
-					int saida = 0;
+					int entrada = -1;
+					int saida = -1;
 					System.out.println("Processo P" + (l-1));
 					int n = (l-1);
 					int c = sc.nextInt();
@@ -48,15 +48,15 @@ public class FileReader{
 					int e = sc.nextInt();
 					System.out.println("Execucao: " + e);
 					int p = sc.nextInt();
-					System.out.println("Prioridade: " + p +"\n");
+					System.out.println("Prioridade: " + p);
 					if(sc.hasNextInt()){//tem operacao de ENTRADA
 						entrada = sc.nextInt();
 						System.out.println("Entrada: " + entrada);
 						if(sc.hasNextInt()){//tem operacao de SAIDA
 							saida = sc.nextInt();
-							System.out.println("Saida: " + saida);
-						}
-					}
+							System.out.println("Saida: " + saida+"\n");
+						}else{System.out.print("\n");}
+					}else{System.out.print("\n");}
 					Processo x = new Processo(n, c, e, p);
 					listaProcessos[l-2] = x;
 					break;
