@@ -6,6 +6,7 @@ public class Processo {
 	private int chegada;
 	private int restante;
 	private boolean terminado;
+	private boolean lock;
 	
 	public void atende(){
 		this.restante--;
@@ -19,6 +20,7 @@ public class Processo {
 		this.prioridade = prioridade;
 		this.restante = execucao;
 		this.terminado = false;
+		this.lock = false;
 	}
 
 	public int getPrioridade() {
@@ -67,5 +69,13 @@ public class Processo {
 
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+
+	public boolean isLock() {
+		return lock;
+	}
+
+	public void setLock(boolean lock) {
+		this.lock = lock;
 	}
 }

@@ -16,7 +16,7 @@ public class Escalonador{
 	public void executa(Processo[] listaProcessos) {
 		// considere -1 como "unassigned", o valor que nao esta vinculado a nenhum dos processos
 		
-		// trocar de volta para (!todosTerminados(listaProcessos))
+		// trocar de volta para (!todosTerminados())
 		while (!todosTerminados()) {
 			// Enquanto houver pelo menos um pendente
 			cicloAtual++;
@@ -45,7 +45,7 @@ public class Escalonador{
 					//realiza troca de contexto
 				}
 				if (robinCounter == fatiaDeTempo) {
-					indicePriorizado = aplicaRoundRobin(indicePriorizado);
+					indicePriorizado = aplicaRoundRobin();
 					// vai conferir se tem outro no mesmo nivel
 					robinCounter = 0;
 					//zera robinCounter
@@ -63,7 +63,7 @@ public class Escalonador{
 		//guarda o valor do indice que entrou
 		for (int i = listaProcessos.length-1; i >=0; i--) {
 			// Percorre a lista de processos
-			if (listaProcessos[i].isTerminado()) {
+			if (listaProcessos[i].isTerminado() || listaProcessos[i].isLock()) {
 				// Se o processo lido ja estiver completo, manda para o
 				// proximo [item] do for.
 				continue;
@@ -89,21 +89,26 @@ public class Escalonador{
 		// normalmente vai retornar o que ja estava
 	}
 
-	public int aplicaRoundRobin(int indicePriorizado) {
+	public int aplicaRoundRobin() {
 		for (int i = 0; i < listaProcessos.length; i++) {
-			if (i == indicePriorizado) {
+			if (i == indicePriorizado || listaProcessos[i].isTerminado()) {
 				// pula o que ja estava executando e vai procurar outro
 				continue;
 			}
-
+			//Está relacionado a todos os demais processos -> deve ser da mesma prioridade que a flag e tem que também já ter chegado na lista para disputar CPU -> Em outras palavras, deve estar em espera. 
 			if (listaProcessos[i].getPrioridade() == flagPrioridade() && listaProcessos[i].getChegada() < cicloAtual) {
+				//System.out.println("Processo: " + i + " trocou.");
 				// foi encontrado outro com a mesma prioridade
+				//listaProcessos[indicePriorizado].setLock(true);
+				//desbloqueiaTodosOutros();
 				return i;
 			}
 		}
 		return indicePriorizado;
 		//se nao foi encontrado, entao segue
 	}
+
+
 
 	public int flagPrioridade() {
 		int prioridade = 99; 
@@ -139,6 +144,17 @@ public class Escalonador{
 		}
 	}
 
+	public void desbloqueiaTodosOutros(){
+		for (int i = 0; i < listaProcessos.length; i++) {
+			if (i == indicePriorizado) {
+				continue; //esse continua bloqueado
+			} else {
+				listaProcessos[i].setLock(false); //desbloqueia, mesmo se nao estiver bloqueado
+			}
+		}
+		
+	}
+	
 	public boolean todosTerminados() {
 		for (int i = 0; i < listaProcessos.length; i++) {
 			if (!listaProcessos[i].isTerminado()) {
